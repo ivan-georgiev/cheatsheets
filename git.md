@@ -56,8 +56,14 @@ git rev-parse HEAD
 # Git interactive rebase on last 4 commits, typically to squash or change commit messages.
 git rebase -i HEAD~4
 
-# Revert last pushed commit
+# Revert last pushed commit (new commit is generated)
 git revert HEAD
+
+# Revert last 3 pushed commits (new commit is generated)
+git revert --no-commit HEAD~3..
+
+# Revert last 3 non-pushed commits (commits are deleted). If pushed, --force must be used to push the changes.
+git reset HEAD~3
 
 # Get fork point from a branch
 git merge-base --fork-point origin/master
@@ -66,7 +72,7 @@ git merge-base --fork-point origin/master
 ## Files compare and change
 
 ```bash
-# List files changed on current local branch compared with origin/master
+# List files changed on current local branch compared with origin/master. Default upstream can be referred as '@{u}'
 git --no-pager diff --name-status origin/master...HEAD
 
 # List commits where file was changed
@@ -86,5 +92,13 @@ git ls-files -s
 git checkout origin/master -- ./path_to_checkout
 
 # Restore branch to last commit state
-git reset --hard HEAD 
+git reset --hard HEAD
+
+# File Git SHA
+git hash-object $file
+cat $file | git hash-object --stdin
+(echo -ne "blob `wc -c < $file`\0"; cat $file) | sha1sum
+# file in index
+git ls-files -s $file | awk '{print $2}'
+
 ```
