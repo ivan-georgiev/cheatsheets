@@ -94,6 +94,12 @@ git checkout origin/master -- ./path_to_checkout
 # Restore branch to last commit state
 git reset --hard HEAD
 
+# Set exec on a file
+git update-index --chmod=+x path/to/file
+
+# Search files for a text
+git grep 'text to find'
+
 # File Git SHA
 git hash-object $file
 cat $file | git hash-object --stdin
