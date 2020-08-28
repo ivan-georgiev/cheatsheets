@@ -26,6 +26,9 @@ git branch -vv
 
 # List tracked remote URL
 git ls-remote --get-url
+
+# Add remote - origin
+git remote add origin <url>
 ```
 ## Commits compare and change
 
