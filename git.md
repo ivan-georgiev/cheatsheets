@@ -70,6 +70,15 @@ git reset HEAD~3
 
 # Get fork point from a branch
 git merge-base --fork-point origin/master
+
+# List branches pointing to a commit
+git log -1 --pretty=format:%D
+
+# Get details about commit parents
+git rev-list --parents --max-count=2 HEAD
+# or more verbose about the commit
+git cat-file commit HEAD
+
 ```
 
 ## Files compare and change
@@ -94,13 +103,16 @@ git ls-files -s
 # Git checkout a file/folder from other branch
 git checkout origin/master -- ./path_to_checkout
 
+# How file from other branch
+git show origin/master:path/to/file
+
 # Restore branch to last commit state
 git reset --hard HEAD
 
 # Set exec on a file
 git update-index --chmod=+x path/to/file
 
-# Search files for a text
+# Search files for a text. Add  $(git rev-list --all) to search in all commits
 git grep 'text to find'
 
 # File Git SHA
